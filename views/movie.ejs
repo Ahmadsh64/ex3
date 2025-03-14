@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>
+        <%= film.Title %> - Rancid Tomatoes
+    </title>
+    <link href="/movie.css" type="text/css" rel="stylesheet" />
+    <link href="/rotten.gif" type="image/gif" rel="shortcut icon">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="header">
+        <img src="/banner.png" alt="Rancid Tomatoes" />
+    </div>
+
+    <h1 class="title">
+        <%= film.Title%> (<%= film.Year%>)
+    </h1>
+
+    <div class="page">
+        <div class="movieInfo">
+            <img src="/movies/<%= film.FilmCode %>/poster.jpg"
+                onerror="this.onerror=null; this.src='/movies/<%= film.FilmCode %>/poster.png';" alt="<%= film.Title %>"
+                width="100%">
+            <dl>
+                <% FilmDetails.forEach(detail=> { %>
+                    <dt>
+                        <%= detail.Attribute %>
+                    </dt>
+                    <dd>
+                        <%= detail.Value %>
+                    </dd>
+                    <% }); %>
+            </dl>
+        </div>
+        <div class="headerTitle">
+            <img src="<%= film.Score >= 60 ? '/freshbig.png' : '/rottenbig.png' %>" alt="Rating" />
+            <h1>
+                <%= film.Score %>%
+            </h1>
+        </div>
+
+        <div class="comments">
+            <% reviews.forEach(review=> { %>
+                <p class="quoteBox">
+                    <img src="<%= film.Score >= 60 ? '/fresh.gif' : '/rotten.gif' %>" alt="review" />
+                    <q>
+                        <%= review.ReviewText %>
+                    </q>
+                </p>
+                <p class="authorBox">
+                    <img src="/critic.gif" alt="Critic" />
+                    <%= review.ReviewerName %> <br />
+                        <%= review.Affiliation %>
+                </p>
+                <%}); %>
+        </div>
+
+        <p class="entries">(1-<%= reviews.length %>) of <%= reviews.length %>
+        </p>
+    </div>
+</body>
+
+</html>
