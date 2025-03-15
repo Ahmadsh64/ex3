@@ -11,7 +11,7 @@ app.use(express.static('public'));
 
 const db = new sqlite3.Database('rtfilms.db');
 
-app.get('/title=/:title', (req, res) => {
+app.get('/title=:title', (req, res) => {
     const title = req.params.title;
 
     db.get('SELECT * FROM Films WHERE Title = ?', [title], (err, film) =>{
@@ -48,5 +48,5 @@ app.get('/title=/:title', (req, res) => {
 });
 
 app.listen(PORT, () =>{
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}/title=`);
 });
