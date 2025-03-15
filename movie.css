@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     width: 100%;
     margin: 0px;
     padding: 0px;
@@ -123,7 +124,7 @@ dt {
     padding: 0px;
     position: relative;
     width: 90%;
-    
+
 }
 
 .quoteBox {
@@ -177,7 +178,8 @@ dt {
         width: 100%;
     }
 
-    .quoteBox, .authorBox {
+    .quoteBox,
+    .authorBox {
         width: 90%;
         margin-bottom: 15px;
     }
