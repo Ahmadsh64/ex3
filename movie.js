@@ -4,15 +4,19 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 7856;
+const PORT = 7876;
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 const db = new sqlite3.Database('rtfilms.db');
 
-app.get('/title=:title', (req, res) => {
-    const title = req.params.title;
+app.get('/', (req, res) => {
+    const title = req.query.title;
+
+    if (!title){
+        return res.status(400).send('Missing title parameter')
+    }
 
     db.get('SELECT * FROM Films WHERE Title = ?', [title], (err, film) =>{
         if (err || !film) {
@@ -20,16 +24,17 @@ app.get('/title=:title', (req, res) => {
             return;
         }
 
-        const posterPathPng = `public/movies/${film.FilmCode}/poster.png`;
-        const posterPathJpg = `public/movies/${film.FilmCode}/poster.jpg`;
-
+        const posterPathPng = path.join(__dirname, 'public', 'movies', film.FilmCode, 'poster.png');
+        const posterPathJpg = path.join(__dirname, 'public', 'movies', film.FilmCode, 'poster.jpg');
+        
+        let posterFormat = null;
         if (fs.existsSync(posterPathPng)){
             posterFormat = "png";
         }else if (fs.existsSync(posterPathJpg)){
             posterFormat = "jpg";
         }
 
-        db.all("SELECT Attribute, Value FROM FilmDetails WHERE FilmCode = ? ORDER BY Attribute DESC", [film.FilmCode], function(err, FilmDetails){
+        db.all("SELECT Attribute, Value FROM FilmDetails WHERE FilmCode = ? ORDER BY Attribute DESC", [film.FilmCode], (err, FilmDetails)=>{
             if (err){
                 console.error('Error retrieving film details: ' + err.message);
                 return res.status(500).send('Internal Server Error');
@@ -48,5 +53,5 @@ app.get('/title=:title', (req, res) => {
 });
 
 app.listen(PORT, () =>{
-    console.log(`Server is running on http://localhost:${PORT}/title=`);
+    console.log(`Server is running on http://localhost:${PORT}/?title=`);
 });
