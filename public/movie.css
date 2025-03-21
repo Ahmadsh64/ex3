@@ -45,22 +45,17 @@ dt {
     float: left;
 }
 
-.column {
-    float: left;
-    margin-left: 2%;
-    width: 47%;
+
+
+.comments-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-.comments {
-    flex-wrap: flex;
-    -webkit-column-count: 2;
-    padding: 5%;
-    -webkit-column-gap: 5%;
-    -webkit-column-width: 30%;
-}
-.comments .quoteBox {
+.column{
     flex: 1 1 45%;
-    margin: 10px;
+    margin: 2%;
 }
 
 
@@ -152,7 +147,7 @@ dt {
 }
 
 .title {
-    font: Verdana, Calibri, sans-serif;
+    font-family: Verdana, Calibri, sans-serif;
     font-size: 3rem;
     font-weight: bold;
     text-align: center;
@@ -178,8 +173,12 @@ dt {
         text-align: left;
     }
 
-    .comments {
-        -webkit-column-count: 1;
+    .comments-container {
+        flex-direction: column;
+    }
+
+    .column {
+        width: 100%;
     }
 
     .entries {

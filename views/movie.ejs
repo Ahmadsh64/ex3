@@ -2,18 +2,21 @@
 <html lang="en">
 
 <head>
-    <title><%= film.Title %> - Rancid Tomatoes</title>
+    <title>
+        <%= film.Title %> - Rancid Tomatoes
+    </title>
     <link href="/movie.css" type="text/css" rel="stylesheet" />
     <link href="/rotten.gif" type="image/gif" rel="shortcut icon">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body>
-     <!-- כותרת הדף עם הלוגו של האתר -->
+    <!-- כותרת הדף עם הלוגו של האתר -->
     <div class="header">
         <img src="/banner.png" alt="Rancid Tomatoes" />
     </div>
-<!-- שם הסרט ושנת ההפקה -->
+    <!-- שם הסרט ושנת ההפקה -->
     <h1 class="title">
         <%= film.Title%> (<%= film.Year%>)
     </h1>
@@ -43,23 +46,44 @@
                 <%= film.Score %>%
             </h1>
         </div>
-<!-- הצגת הביקורות -->
-        <div class="comments">
-            <% reviews.forEach(review=> { %>
-                <p class="quoteBox">
-                    <img src="<%= film.Score >= 60 ? '/fresh.gif' : '/rotten.gif' %>" alt="review" />
-                    <q>
-                        <%= review.ReviewText %>
-                    </q>
-                </p>
-                <p class="authorBox">
-                    <img src="/critic.gif" alt="Critic" />
-                    <%= review.ReviewerName %> <br />
-                    <%= review.Affiliation %>
-                </p>
+        <!-- הצגת הביקורות -->
+        <div class="comments-container">
+            <!-- הצגת חצי מהביקורות בעמודה השמאלית -->
+            <div class="column">
+                <% reviews.slice(0, Math.ceil(reviews.length / 2)).forEach(review=> { %>
+                    <p class="quoteBox">
+                        <img src="<%= film.Score >= 60 ? '/fresh.gif' : '/rotten.gif' %>" alt="review" />
+                        <q>
+                            <%= review.ReviewText %>
+                        </q>
+                    </p>
+                    <p class="authorBox">
+                        <img src="/critic.gif" alt="Critic" />
+                        <%= review.ReviewerName %> <br />
+                            <%= review.Affiliation %>
+                    </p>
                 <%}); %>
+            </div>
+
+            <!-- הצגת חצי מהביקורות בעמודה הימנית -->
+            <div class="column">
+                <% reviews.slice(Math.ceil(reviews.length / 2)).forEach(review=> { %>
+                    <p class="quoteBox">
+                        <img src="<%= film.Score >= 60 ? '/fresh.gif' : '/rotten.gif' %>" alt="review" />
+                        <q>
+                            <%= review.ReviewText %>
+                        </q>
+                    </p>
+                    <p class="authorBox">
+                        <img src="/critic.gif" alt="Critic" />
+                        <%= review.ReviewerName %> <br />
+                            <%= review.Affiliation %>
+                    </p>
+                <%}); %>
+            </div>
         </div>
-<!-- פס ירוק תחתון -->
+
+        <!-- פס ירוק תחתון -->
         <p class="entries">(1-<%= reviews.length %>) of <%= reviews.length %>
         </p>
     </div>
