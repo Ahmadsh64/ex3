@@ -1,3 +1,6 @@
+/* movie.css - עיצוב של הדף שמציג את הסרטים והביקורות */
+ 
+/* הגדרת עיצוב כללי לעמוד */
 html, body {
     width: 100%;
     margin: 0px;
@@ -10,7 +13,7 @@ body {
     font-size: 1rem;
     background: url("background.png");
 }
-
+/* עיצוב לתיאורים של פרטי הסרט */
 dd {
     margin-left: 3em;
     margin-bottom: 10pt;
@@ -159,7 +162,7 @@ dt {
 #reviews {
     width: 550px;
 }
-
+/* התאמה למסכים קטנים */
 @media (max-width: 787px) {
     .movieInfo {
         width: 100%;

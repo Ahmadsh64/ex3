@@ -2,30 +2,30 @@
 <html lang="en">
 
 <head>
-    <title>
-        <%= film.Title %> - Rancid Tomatoes
-    </title>
+    <title><%= film.Title %> - Rancid Tomatoes</title>
     <link href="/movie.css" type="text/css" rel="stylesheet" />
     <link href="/rotten.gif" type="image/gif" rel="shortcut icon">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
 <body>
+     <!-- כותרת הדף עם הלוגו של האתר -->
     <div class="header">
         <img src="/banner.png" alt="Rancid Tomatoes" />
     </div>
-
+<!-- שם הסרט ושנת ההפקה -->
     <h1 class="title">
         <%= film.Title%> (<%= film.Year%>)
     </h1>
 
     <div class="page">
+        <!-- הצגת מידע על הסרט -->
         <div class="movieInfo">
             <img src="/movies/<%= film.FilmCode %>/poster.jpg"
                 onerror="this.onerror=null; this.src='/movies/<%= film.FilmCode %>/poster.png';" alt="<%= film.Title %>"
                 width="100%">
             <dl>
+                <!-- הצגת פרטי הסרט -->
                 <% FilmDetails.forEach(detail=> { %>
                     <dt>
                         <%= detail.Attribute %>
@@ -36,13 +36,14 @@
                     <% }); %>
             </dl>
         </div>
+        <!-- הצגת דירוג הסרט -->
         <div class="headerTitle">
             <img src="<%= film.Score >= 60 ? '/freshbig.png' : '/rottenbig.png' %>" alt="Rating" />
             <h1>
                 <%= film.Score %>%
             </h1>
         </div>
-
+<!-- הצגת הביקורות -->
         <div class="comments">
             <% reviews.forEach(review=> { %>
                 <p class="quoteBox">
@@ -58,7 +59,7 @@
                 </p>
                 <%}); %>
         </div>
-
+<!-- פס ירוק תחתון -->
         <p class="entries">(1-<%= reviews.length %>) of <%= reviews.length %>
         </p>
     </div>
